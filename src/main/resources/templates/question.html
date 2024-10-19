@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Question [[${index}]]</title>
+    <script type="text/javascript">
+        function enforceAlphaAndUppercase(event) {
+            const inputField = event.target;
+            const inputValue = inputField.value;
+
+            // Remove all non-alphabetic characters
+            const sanitizedValue = inputValue.replace(/[^a-zA-Z]/g, '');
+
+            // Convert the input to uppercase
+            inputField.value = sanitizedValue.toUpperCase();
+        }
+
+        function validateForm() {
+            var answer = document.querySelector("textarea[name='answer']").value.trim();
+
+            if (answer === "") {
+                alert("Please enter an answer before proceeding.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<div style="margin:10px;">
+    <h1>Question [[${index}]]</h1>
+    <img th:src="@{${imagePath}}" alt="Question [[${index}]]" style="width:90%;"/>
+</div>
+
+<!-- Form changes based on whether it's the last question -->
+<form th:action="@{/submit-answer}" method="POST" onsubmit="return validateForm()">
+    <input type="hidden" name="index" th:value="${index}" />
+    <div style="margin:10px;">
+        <textarea name="answer" placeholder="Ans1,Ans2..." rows="2" cols="50" oninput="enforceAlphaAndUppercase(event)"></textarea>
+    </div>
+
+    <div style="margin:10px;display:flex;justify-content: space-between;align-items:center;">
+        <!-- Back button -->
+        <button th:disabled="${isFirst}" th:href="@{/image(index=${index-1})}" style="margin:10px;">Back</button>
+
+        <button type="submit" style="margin:10px;">Next</button>
+    </div>
+</form>
+
+</body>
+</html>

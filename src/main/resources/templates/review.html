@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Review Your Answers</title>
+  <script type="text/javascript">
+    function confirmSubmit() {
+        return confirm("Are you sure you want to submit your answers?");
+    }
+  </script>
+</head>
+<body>
+
+<div style="margin:10px;">
+  <h1>Review Your Answers</h1>
+  <p>Please review your answers before submitting.</p>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Question Number</th>
+      <th>Your Answer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="answerEntry : ${answers}">
+      <td>[[${answerEntry.key}]]</td>
+      <td>[[${answerEntry.value}]]</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <form th:action="@{/result}" method="POST" onsubmit="return confirmSubmit()">
+    <button type="submit" style="margin:10px;">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
