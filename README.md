@@ -5,9 +5,9 @@ This is a Spring Boot web application that displays a series of questions.
 
 ## Requirements
 
-- Java 11 or higher
+- Java 17
 - Maven 3.x
-- Spring Boot 2.x.x
+- Spring Boot 3.x.x
 
 ## Installation
 
