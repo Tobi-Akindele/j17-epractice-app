@@ -28,6 +28,7 @@ public class AnswerService {
     public void computeResult(Model model) {
         AtomicInteger score = new AtomicInteger(0);
         int total = answersConfig.getAnswers().size();
+        Map<String, String[]> reviews = new HashMap<>();
 
         answersConfig.getAnswers().forEach((question, ans) -> {
             Set<String> userAns = Arrays
@@ -36,6 +37,11 @@ public class AnswerService {
 
             if (ans.equals(userAns)) {
                 score.getAndIncrement();
+            } else {
+                reviews.put(question, new String[] {
+                        Strings.join(userAns, ','),
+                        Strings.join(ans, ',')
+                });
             }
         });
         double percentage = (score.doubleValue() / total) * 100;
@@ -44,6 +50,7 @@ public class AnswerService {
         model.addAttribute("score", score);
         model.addAttribute("total", total);
         model.addAttribute("remark", percentage > PASS_MARK ? "PASS" : "FAIL");
+        model.addAttribute("reviews", reviews);
     }
 
     public Map<String, String> getAnswers() {

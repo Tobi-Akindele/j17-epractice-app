@@ -8,7 +8,7 @@
             const inputValue = inputField.value;
 
             // Remove all non-alphabetic characters
-            const sanitizedValue = inputValue.replace(/[^a-zA-Z]/g, '');
+            const sanitizedValue = inputValue.replace(/[^a-zA-Z,]/g, '');
 
             // Convert the input to uppercase
             inputField.value = sanitizedValue.toUpperCase();
